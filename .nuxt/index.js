@@ -11,7 +11,8 @@ import { setContext, getLocation, getRouteData, normalizeError } from './utils'
 
 /* Plugins */
 
-import nuxt_plugin_bootstrapvue_395d8614 from 'nuxt_plugin_bootstrapvue_395d8614' // Source: ./bootstrap-vue.js (mode: 'all')
+import nuxt_plugin_bootstrapvue_22133c9a from 'nuxt_plugin_bootstrapvue_22133c9a' // Source: ./bootstrap-vue.js (mode: 'all')
+import nuxt_plugin_firebase_34d6f55a from 'nuxt_plugin_firebase_34d6f55a' // Source: ../plugins/firebase.js (mode: 'client')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -145,8 +146,12 @@ async function createApp (ssrContext) {
 
   // Plugin execution
 
-  if (typeof nuxt_plugin_bootstrapvue_395d8614 === 'function') {
-    await nuxt_plugin_bootstrapvue_395d8614(app.context, inject)
+  if (typeof nuxt_plugin_bootstrapvue_22133c9a === 'function') {
+    await nuxt_plugin_bootstrapvue_22133c9a(app.context, inject)
+  }
+
+  if (process.client && typeof nuxt_plugin_firebase_34d6f55a === 'function') {
+    await nuxt_plugin_firebase_34d6f55a(app.context, inject)
   }
 
   // If server-side, wait for async component to be resolved first
