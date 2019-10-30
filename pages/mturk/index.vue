@@ -3,7 +3,7 @@
     <div>
       <logo />
       <h1 class="title">
-        turk-app
+        turk-app New route to multiple parameters
       </h1>
       <h2 class="subtitle">
         Assessment application
@@ -16,7 +16,13 @@
         >
           Documentation
         </a>
-        <nuxt-link :to="{path: '/mturk',query:{assignmentId:id,hitId:id,workerId:id,turkSubmitTo:'https%3A%2F%2Fwww.mturk.com'}}">GO to Link</nuxt-link>
+        <a
+          href="https://github.com/nuxt/nuxt.js"
+          target="_blank"
+          class="button--grey"
+        >
+          GitHub
+        </a>
       </div>
     </div>
   </div>
@@ -29,10 +35,8 @@ export default {
   components: {
     Logo
   },
-  data () {
-    return {
-      id: '124'
-    }
+  mounted () {
+    console.log(this.$route.query.workerId)
   }
 }
 </script>
