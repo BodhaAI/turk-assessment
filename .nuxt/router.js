@@ -5,6 +5,7 @@ import scrollBehavior from './router.scrollBehavior.js'
 
 const _a1878e4c = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
+
 Vue.use(Router)
 
 export const routerOptions = {
@@ -15,6 +16,10 @@ export const routerOptions = {
   scrollBehavior,
 
   routes: [{
+    path: "/mturk",
+    component: _1eaba2b1,
+    name: "mturk"
+  }, {
     path: "/",
     component: _a1878e4c,
     name: "index"
