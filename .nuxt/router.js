@@ -3,8 +3,8 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _a1878e4c = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
-
+const _1eaba2b1 = () => interopDefault(import('../pages/mturk/index.vue' /* webpackChunkName: "pages/mturk/index" */))
+const _c4be60ce = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 Vue.use(Router)
 
@@ -21,7 +21,7 @@ export const routerOptions = {
     name: "mturk"
   }, {
     path: "/",
-    component: _a1878e4c,
+    component: _c4be60ce,
     name: "index"
   }],
 
