@@ -4,13 +4,13 @@
         <div class="" style="width:560px; ">
           <div class="card cardCss" >
             <div class="card-header cardHeaderCss">
-              <p style="margin-top: 4px;"> <span>testName</span>  </p>
+              <p style="margin-top: 4px;"> <span>{{testName}}</span>  </p>
             </div>
 
             <div class="card-body" style="text-align:center;">
               <div class="" style="margin:2%; text-align: -webkit-left">
                 <p style="color: #232323;font-family: Muli;font-size: 14px;font-weight: bold;line-height: 14px;">Instructions</p>
-                <p style="color: #232323;	font-family: Muli;font-size: 14px;line-height: 22px;" >We Recommend to complete</p>
+                <p style="color: #232323;	font-family: Muli;font-size: 14px;line-height: 22px;" v-html="instructions"></p>
                 <button style="height: 48px;width: 140px;border-radius: 24px;background-color: #796EFF;color: #FFFFFF;font-family: Muli;font-size: 16px;font-weight: bold;line-height: 16px;" type="button" v-on:click="startTest()" name="button">Start Your Test</button>
               </div>
             </div>
@@ -34,26 +34,26 @@ export default {
   },
   props: ['testId'],
   mounted () {
-    // firestore.collection('candidate_tests').doc(this.testId)
-    //   .get().then((response) => {
-    //     console.log('response is', response.data())
-    //     this.testName = response.data().testName
-    //     this.instructions = response.data().instructions
-    //   })
-    // this.gTestCollectionRef = firestore.collection('candidate_tests').doc(this.testId)
-    // this.cTestCollectionRef = firestore.collection('users').doc('candidate').collection(this.$route.params.id).doc('tests').collection(this.testId)
-    // this.loadTestCollection()
+    firestore.collection('turk-testCollection').doc('turk_assessment')
+      .get().then((response) => {
+        console.log('response is', response.data())
+        this.testName = response.data().testName
+        this.instructions = response.data().instructions
+      })
+    this.gTestCollectionRef = firestore.collection('turk-testCollection').doc('turk_assessment')
+    this.cTestCollectionRef = firestore.collection('turkers-assessments').doc(this.$route.query.workerId).collection('tests-data')
+    this.loadTestCollection()
   },
   methods: {
     startTest () {
       this.disableStartBtn = true
-      // if (this.testCollection.testAdopted === true) {
-      //   this.$emit('showTest', true)
-      // } else {
-      //   this.adoptTest()
-      // }
+      if (this.testCollection.isComplete === true) {
+        this.$emit('showTest', true)
+      } else {
+        this.adoptTest()
+      }
       // this.adoptTest()
-      this.$emit('showTest', true)
+      // this.$emit('showTest', true)
     },
     loadTestCollection () {
       this.gTestCollectionRef.get()
@@ -62,22 +62,15 @@ export default {
             .then((cDoc) => {
               const testCol = {
                 instructions: gDoc.data().instructions,
-                description: gDoc.data().description,
-                durationInMinutes: gDoc.data().durationInMinutes,
                 testName: gDoc.data().testName,
                 id: gDoc.data().id,
-                testStatus: 0,
-                testAdopted: gDoc.data().testAdopted,
-                startDate: gDoc.data().startDate,
-                startTime: gDoc.data().startTime,
-                orderOfDisplay: gDoc.data().orderOfDisplay,
+                isComplete: false,
+                hitId: this.$route.query.hitId,
+                assignmentId: this.$route.query.assignmentId,
                 totalQuestions: gDoc.data().totalQuestions
               }
               if (cDoc.exists) {
-                testCol.startDate = cDoc.data().startDate
-                testCol.startTime = cDoc.data().startTime
-                testCol.testStatus = cDoc.data().testStatus
-                testCol.testAdopted = cDoc.data().testAdopted
+                testCol.isComplete = cDoc.data().isComplete
               }
               this.testCollection = testCol
             }).catch()
@@ -85,66 +78,65 @@ export default {
     },
     adoptTest () {
       this.$emit('showTest', true)
-      // const executeTasks = []
+      const executeTasks = []
       // this.testCollection.testAdopted = true
-      // const createTestCollection = this.cTestCollectionRef.doc('status').set({
-      //   durationInMinutes: this.testCollection.durationInMinutes,
-      //   testName: this.testCollection.testName,
-      //   id: this.testCollection.id,
-      //   testStatus: this.testCollection.testStatus,
-      //   testAdopted: this.testCollection.testAdopted,
-      //   startDate: this.testCollection.startDate,
-      //   startTime: this.testCollection.startTime
-      // }, { merge: true }).then(() => {
-      //   this.gTestCollectionRef.collection('question_and_answers').get()
-      //     .then((snapshot) => {
-      //       snapshot.forEach((doc) => {
-      //         this.copyDocument(doc.data())
-      //       })
-      //     }).catch((error) => {
-      //       return error
-      //     })
-      // }).catch((error) => {
-      //   return error
-      // })
-      // executeTasks.push(createTestCollection)
-      // Promise.all(executeTasks).then(() => {
-      //   let time = 0
-      //   const timer = setInterval(() => {
-      //     if (time < 1) {
-      //       time += 1
-      //       // clearInterval(this.timer)
-      //     } else {
-      //       Promise.resolve().then(() => {
-      //         // if (this.testQuestion.questionId && this.testQuestion.questionId.length > 0) {
-      //         //   this.testCollection.testAdopted = true
-      //         // } else {
-      //         //   // time = 0
-      //         // }
-      //         clearInterval(timer)
-      //       })
-      //     }
-      //   }, 1000)
-      // }).catch((error) => {
-      //   console.log(error)
-      // })
+      const createTestCollection = this.cTestCollectionRef.doc('status').set({
+        // instructions: gDoc.data().instructions,
+        // testName: gDoc.data().testName,
+        id: this.$route.query.workerId,
+        isComplete: false,
+        hitId: this.$route.query.hitId,
+        assignmentId: this.$route.query.assignmentId,
+        // totalQuestions: gDoc.data().totalQuestions
+      }, { merge: true }).then(() => {
+        this.gTestCollectionRef.collection('question_and_answers').get()
+          .then((snapshot) => {
+            snapshot.forEach((doc) => {
+              this.copyDocument(doc.data())
+            })
+          }).catch((error) => {
+            return error
+          })
+      }).catch((error) => {
+        return error
+      })
+      executeTasks.push(createTestCollection)
+      Promise.all(executeTasks).then(() => {
+        let time = 0
+        const timer = setInterval(() => {
+          if (time < 1) {
+            time += 1
+            // clearInterval(this.timer)
+          } else {
+            Promise.resolve().then(() => {
+              // if (this.testQuestion.questionId && this.testQuestion.questionId.length > 0) {
+              //   this.testCollection.testAdopted = true
+              // } else {
+              //   // time = 0
+              // }
+              clearInterval(timer)
+            })
+          }
+        }, 1000)
+      }).catch((error) => {
+        console.log(error)
+      })
     },
     copyDocument (document) {
-      // Promise.resolve(this.cTestCollectionRef.doc('data')
-      //   .collection('question_and_answers').doc(document.questionId).set({
-      //     answer: document.answer,
-      //     answerType: document.answerType,
-      //     questionId: document.questionId,
-      //     multipleAnswersAllowed: document.multipleAnswersAllowed,
-      //     questionText: document.questionText,
-      //     answerTemplate: document.answerTemplate,
-      //     quickReplies: document.quickReplies,
-      //     qno: document.qno
-      //     // hint: document.hint
-      //   }, { merge: true }).then((data) => {
-      //   }).catch((error) => {
-      //     return error
-      //   }))
+      Promise.resolve(this.cTestCollectionRef.doc('data')
+        .collection('question_and_answers').doc(document.questionId).set({
+          answer: document.answer,
+          answerType: document.answerType,
+          questionId: document.questionId,
+          multipleAnswersAllowed: document.multipleAnswersAllowed,
+          questionText: document.questionText,
+          answerTemplate: document.answerTemplate,
+          quickReplies: document.quickReplies,
+          qno: document.qno
+        }, { merge: true }).then((data) => {
+        }).catch((error) => {
+          return error
+        }))
     }
   }
 }
