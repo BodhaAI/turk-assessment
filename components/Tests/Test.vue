@@ -136,7 +136,7 @@
 import { firestore, appengineBaseurl, firebaseAuth } from '~/plugins/firebase.js'
 // import Timer from './Timer'
 // import { eventBus } from '~/plugins/eventbus.js'
-// import axios from 'axios'
+import axios from 'axios'
 export default {
   components: {
 
@@ -187,6 +187,14 @@ export default {
     },
     completeTest (testName) {
       console.log('TEST COMPLETE', testName)
+      this.updateTestCollection()
+      axios.post('https://www.mturk.com/mturk/externalSubmit?assignmentId=' + this.$route.query.assignmentId + '&altQuestion=NA')
+        .then((response) => {
+          console.log('RESPONSE', response)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
     },
     updateTestCollection () {
       firestore.collection('turkers-assessments').doc(this.$route.query.workerId).collection('tests-data').doc('status').set({
