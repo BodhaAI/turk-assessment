@@ -17,9 +17,7 @@ export default {
     }
   },
   mounted () {
-    if (this.$route.query.assignmentId == undefined || this.$route.query.hitId == undefined || this.$route.query.workerId == undefined || this.$route.query.turkSubmitTo == undefined) {
-      this.$router.push('/error')
-    }
+    console.log('COMPONENT')
   }
 }
 </script>

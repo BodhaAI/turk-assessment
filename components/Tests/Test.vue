@@ -216,6 +216,7 @@ export default {
         answer = this.getCheckedItems()
       } else {
         answer = this.testQuestion.answer
+        console.log('after writing an answer', this.testQuestion.answer)
       }
       Promise.all([this.updateQuestion(answer), this.loadQuestionNext()])
         .then().catch((error) => {
@@ -235,10 +236,12 @@ export default {
       return checkedItems
     },
     updateQuestion (inputAnswer) {
+      console.log('input answer', inputAnswer)
       firestore.collection('turkers-assessments').doc(this.$route.query.workerId).collection('tests-data').doc('data')
         .collection('question_and_answers').doc(this.testQuestion.questionId).set({
           answer: inputAnswer
         }, { merge: true }).then(() => {
+          console.log('answer')
         }).catch((error) => {
           return error
         })
@@ -336,6 +339,7 @@ export default {
               this.disableNext = true
             } else {
               this.testQuestion.answer = doc.docs[0].data().answer
+              console.log('marked answer', this.testQuestion.answer, doc.docs[0].data().answer)
               this.disableNext = false
             }
             if (doc.docs[0].data().answer === null && doc.docs[0].data().answerType === 'QUICK_REPLY' && doc.docs[0].data().multipleAnswersAllowed) {
@@ -370,6 +374,9 @@ export default {
       this.testQuestion.answer[index].checked = !checkedValue
       // this.disableNextChecked(this.testQuestion.answer)
     },
+
+    // loading test to the user collection
+
     loadTestCollection () {
       firestore.collection('turk-testCollection').doc('turk_assessment').get()
         .then((gDoc) => {

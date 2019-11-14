@@ -32,6 +32,11 @@ export default {
     }
   },
   mounted () {
+    console.log(window.location.href, 'router-link')
+    var url = window.location.href
+    if (this.$route.query.assignmentId == undefined || this.$route.query.hitId == undefined || this.$route.query.workerId == undefined || this.$route.query.turkSubmitTo == undefined) {
+      this.$router.push('/error')
+    }
     console.log('COMPONENT', this.show_test)
   }
 }

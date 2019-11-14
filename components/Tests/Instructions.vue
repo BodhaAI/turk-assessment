@@ -50,7 +50,15 @@ export default {
       if (this.testCollection.isComplete === true) {
         this.$emit('showTest', true)
       } else {
-        this.adoptTest()
+        this.cTestCollectionRef.doc('status').get()
+          .then((response) => {
+            console.log('RESPONSE', response)
+            if (!response.exists) {
+              this.adoptTest()
+            } else {
+              this.$emit('showTest', true)
+            }
+          })
       }
       // this.adoptTest()
       // this.$emit('showTest', true)
@@ -77,7 +85,7 @@ export default {
         }).catch()
     },
     adoptTest () {
-      this.$emit('showTest', true)
+      // this.$emit('showTest', true)
       const executeTasks = []
       // this.testCollection.testAdopted = true
       const createTestCollection = this.cTestCollectionRef.doc('status').set({
@@ -106,14 +114,9 @@ export default {
         const timer = setInterval(() => {
           if (time < 1) {
             time += 1
-            // clearInterval(this.timer)
           } else {
             Promise.resolve().then(() => {
-              // if (this.testQuestion.questionId && this.testQuestion.questionId.length > 0) {
-              //   this.testCollection.testAdopted = true
-              // } else {
-              //   // time = 0
-              // }
+              this.$emit('showTest', true)
               clearInterval(timer)
             })
           }
