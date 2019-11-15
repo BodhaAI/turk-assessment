@@ -118,7 +118,7 @@
                       </button>
                       <button v-if="testQuestion.qno === testCollection.totalQuestions" v-on:click="completeTest(testCollection.testName)"
                       :disabled="disableNext"
-                      style="cursor:pointer;height: 48px;	width: 100px;	border-radius: 24px;	background-color: #796EFF;	color: #FFFFFF;	font-family: Muli;	font-size: 16px;	font-weight: bold;	line-height: 16px;	text-align: center; float:right;">
+                      style="cursor:pointer;height: 48px;border-radius: 24px;	background-color: #796EFF;	color: #FFFFFF;	font-family: Muli;	font-size: 16px;	font-weight: bold;	line-height: 16px;	text-align: center; float:right;">
                       Complete Test
                     </button>
                   </div>
@@ -187,10 +187,16 @@ export default {
     },
     completeTest (testName) {
       console.log('TEST COMPLETE', testName)
+      this.updateQuestion(this.testQuestion.answer)
       this.updateTestCollection()
-      axios.post('https://www.mturk.com/mturk/externalSubmit?assignmentId=' + this.$route.query.assignmentId + '&altQuestion=NA')
+      this.$router.push('/Success')
+      const options = {
+        headers: {'Access-Control-Allow-Origin': '*'}
+      }
+      axios.post('https://www.mturk.com/mturk/externalSubmit?assignmentId=' + this.$route.query.assignmentId + '&altQuestion=NA', options)
         .then((response) => {
           console.log('RESPONSE', response)
+          this.$router.push('/Success')
         })
         .catch((error) => {
           console.error(error)

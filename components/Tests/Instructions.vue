@@ -13,6 +13,7 @@
                 <p style="color: #232323;	font-family: Muli;font-size: 14px;line-height: 22px;" v-html="instructions"></p>
                 <button style="height: 48px;width: 140px;border-radius: 24px;background-color: #796EFF;color: #FFFFFF;font-family: Muli;font-size: 16px;font-weight: bold;line-height: 16px;" type="button" v-on:click="startTest()" name="button">Start Your Test</button>
               </div>
+              <p v-if="testDone" style="font-size: 14px;color: #7f68ff;">Test already taken and completed successfully!</p>
             </div>
           </div>
         </hr>
@@ -26,6 +27,7 @@ export default {
   data () {
     return {
       testName: '',
+      testDone: false,
       testCollection: '',
       instructions: '',
       gTestCollectionRef: '',
@@ -48,7 +50,8 @@ export default {
     startTest () {
       this.disableStartBtn = true
       if (this.testCollection.isComplete === true) {
-        this.$emit('showTest', true)
+        this.testDone = true
+        // this.$emit('showTest', true)
       } else {
         this.cTestCollectionRef.doc('status').get()
           .then((response) => {
