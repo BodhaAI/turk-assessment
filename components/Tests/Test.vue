@@ -496,4 +496,7 @@ input[type="radio"]:checked {
     width: 100px;
     margin: calc((340px - 100px)/2) auto;
   }
+  button:focus {
+    outline: none;
+  }
 </style>

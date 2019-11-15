@@ -197,4 +197,7 @@ export default {
   height: 48px;	width: 180px;	border: 2px solid #796EFF;	border-radius: 24px;	background-color: #FFFFFF;
   	color: #796EFF;	font-family: Muli;	font-size: 16px;	font-weight: bold;	line-height: 16px;
   }
+  button:focus {
+    outline: none;
+  }
 </style>
