@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60 (88103) - https://sketch.com -->
+    <title>loader1</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="64" height="64"></rect>
+        <filter x="-3.1%" y="-3.1%" width="106.2%" height="106.2%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="1.5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="loader1" fill-rule="nonzero">
+            <g id="Rectangle" opacity="0">
+                <use fill-opacity="0.77" fill="#000000" xlink:href="#path-1"></use>
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+            </g>
+            <g id="Group">
+                <polygon id="Path" fill="#796EFF" points="29.8 0 33.8 0 33.8 20 29.8 20 29.8 0"></polygon>
+                <polygon id="Path" fill-opacity="0.63" fill="#E4E2FF" transform="translate(42.826795, 12.847441) rotate(30.000000) translate(-42.826795, -12.847441) " points="40.8267949 2.84744112 44.8267949 2.84744112 44.8267949 22.8474411 40.8267949 22.8474411 40.8267949 2.84744112"></polygon>
+                <polygon id="Path" fill-opacity="0.58" fill="#E4E2FF" transform="translate(50.952559, 20.826795) rotate(60.000000) translate(-50.952559, -20.826795) " points="48.9525589 10.8267949 52.9525589 10.8267949 52.9525589 30.8267949 48.9525589 30.8267949 48.9525589 10.8267949"></polygon>
+                <polygon id="Path" fill-opacity="0.63" fill="#E4E2FF" transform="translate(54.000000, 31.800000) rotate(90.000000) translate(-54.000000, -31.800000) " points="52 21.8 56 21.8 56 41.8 52 41.8 52 21.8"></polygon>
+                <polygon id="Path" fill-opacity="0.6" fill="#E4E2FF" transform="translate(51.152559, 42.826795) rotate(120.000000) translate(-51.152559, -42.826795) " points="49.1525589 32.8267949 53.1525589 32.8267949 53.1525589 52.8267949 49.1525589 52.8267949 49.1525589 32.8267949"></polygon>
+                <polygon id="Path" fill-opacity="0.63" fill="#D7D3FF" transform="translate(43.173205, 50.952559) rotate(150.000000) translate(-43.173205, -50.952559) " points="41.1732051 40.9525589 45.1732051 40.9525589 45.1732051 60.9525589 41.1732051 60.9525589 41.1732051 40.9525589"></polygon>
+                <polygon id="Path" fill-opacity="0.4" fill="#C9C5FF" transform="translate(32.200000, 54.000000) rotate(180.000000) translate(-32.200000, -54.000000) " points="30.2 44 34.2 44 34.2 64 30.2 64 30.2 44"></polygon>
+                <polygon id="Path" fill-opacity="0.5" fill="#BCB6FF" transform="translate(21.173205, 51.152559) rotate(-150.000000) translate(-21.173205, -51.152559) " points="19.1732051 41.1525589 23.1732051 41.1525589 23.1732051 61.1525589 19.1732051 61.1525589 19.1732051 41.1525589"></polygon>
+                <polygon id="Path" fill-opacity="0.6" fill="#AFA8FF" transform="translate(13.047441, 43.173205) rotate(-120.000000) translate(-13.047441, -43.173205) " points="11.0474411 33.1732051 15.0474411 33.1732051 15.0474411 53.1732051 11.0474411 53.1732051 11.0474411 33.1732051"></polygon>
+                <polygon id="Path" fill-opacity="0.7" fill="#A199FF" transform="translate(10.000000, 32.200000) rotate(-90.000000) translate(-10.000000, -32.200000) " points="8 22.2 12 22.2 12 42.2 8 42.2 8 22.2"></polygon>
+                <polygon id="Path" fill-opacity="0.8" fill="#948BFF" transform="translate(12.847441, 21.173205) rotate(-60.000000) translate(-12.847441, -21.173205) " points="10.8474411 11.1732051 14.8474411 11.1732051 14.8474411 31.1732051 10.8474411 31.1732051 10.8474411 11.1732051"></polygon>
+                <polygon id="Path" fill-opacity="0.9" fill="#867CFF" transform="translate(20.826795, 13.047441) rotate(-30.000000) translate(-20.826795, -13.047441) " points="18.8267949 3.04744112 22.8267949 3.04744112 22.8267949 23.0474411 18.8267949 23.0474411 18.8267949 3.04744112"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
