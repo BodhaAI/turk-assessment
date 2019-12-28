@@ -1,33 +1,33 @@
 <template>
     <div class="body-content row" style="margin-left:1%">
-      <!-- <div v-if="elementIsReady !== true" class="container-fluid page-content display-column-flex" style="height: auto; width: 100%;overflow: auto;margin-top: 3%;margin-left: 2%;">
+      <div v-if="elementIsReady !== true" class="container-fluid page-content display-column-flex" style="height: auto; width: 100%;overflow: auto;margin-top: 3%;margin-left: 2%;">
         <div id="loader"></div>
-      </div> -->
-      <div class="col-lg-9" style="">
+      </div>
+      <div v-else class="col-lg-9" style="">
         <div class="" style="width:560px; ">
           <div class="card cardCss" >
             <div class="card-header cardHeaderCss">
               <p style="margin-top: 4px;"> <span>{{testCollection.testName}}</span></p>
-              <div style="margin: auto 10px auto auto;text-align: right;color: #232323;font-weight: normal;font-family: Muli;font-size: 12px;line-height: 12px;text-align: right; margin-top:7px;">
+              <div style="margin: auto 10px auto auto;text-align: right;color: #232323;font-weight: normal;font-size: 12px;line-height: 12px;text-align: right; margin-top:7px;">
                 <!-- <timer :testStatus="testCollection.testStatus" :testName="testId" :pauseTime="pauseTime" v-bind:time="testCollection.durationInMinutes"></timer> -->
               </div>
             </div>
             <div class="card-body" style="text-align:center;">
               <div class="" style="margin:2%; text-align: -webkit-left">
-                <div class="" style="display: block;color: #232323;font-family: Muli SemiBold;font-size: 17px;line-height: 14px;">
+                <div class="" style="display: block;color: #232323;font-size: 17px;line-height: 14px;">
                   <p v-if="testCollection.testName === 'personality_test'" style="margin-bottom: 7%;">Please use the rating scale next to each phrase to describe how accurately each statement describes you</p>
                   <p v-else style="margin-bottom: 7%;">Please rate the degree to which you like to do the following activities, using the following scale.</p>
                 </div>
                 <div class="row">
                   <div class="col-lg-1">
-                    <p style="display: block;color: #232323;font-family: Muli SemiBold;font-size: 16px;line-height: 14px;">{{testQuestion.qno}}</p>
+                    <p style="display: block;color: #232323;font-size: 16px;line-height: 14px;">{{testQuestion.qno}}</p>
                   </div>
-                  <div class="col-lg-7" style=" float:left;width: 85%; margin-bottom:2%;color: #232323;font-family: Muli SemiBold;font-size: 16px;line-height: 14px;padding-left: 10px;">
+                  <div class="col-lg-7" style=" float:left;width: 85%; margin-bottom:2%;color: #232323;font-size: 16px;line-height: 14px;padding-left: 10px;">
                     <p>{{testQuestion.questionText}}</p>
-                    <!-- <p v-if="testQuestion.hint && testQuestion.hint.length > 0" style="color: #232323;font-family: Muli;font-size: 12px;line-height: 12px;margin: 5px auto auto 0px;font-weight: normal;">(Hint:&nbsp;{{testQuestion.hint}})</p> -->
+                    <!-- <p v-if="testQuestion.hint && testQuestion.hint.length > 0" style="color: #232323;font-size: 12px;line-height: 12px;margin: 5px auto auto 0px;font-weight: normal;">(Hint:&nbsp;{{testQuestion.hint}})</p> -->
                   </div>
-                  <div class="col-lg-4" style="margin: 0px 0px auto auto;color: #232323;font-family: Muli;font-size: 12px;font-weight: 300;line-height: 16px;text-align: right;">
-                    <p style="font-family: Muli SemiBold;font-size: 13px;line-height: 14px;">
+                  <div class="col-lg-4" style="margin: 0px 0px auto auto;color: #232323;font-size: 12px;font-weight: 300;line-height: 16px;text-align: right;">
+                    <p style="font-size: 13px;line-height: 14px;">
                       <span >{{testQuestion.qno}}</span>
                     <span>/</span>
                     <span style="font-weight: normal;">{{testCollection.totalQuestions}}</span>
@@ -36,8 +36,8 @@
                 </div>
 
                 <div class="display-row-flex" style="width: 100%;margin: 2px auto;">
-                  <!-- <div style="display: block;width: 20px;color: #232323;font-family: Muli;font-size: 14px;font-weight: bold;line-height: 14px;">A:</div> -->
-                  <div style="display: block;width: calc(100% - 30px);color: #232323;font-family: Muli SemiBold;font-size: 16px;line-height: 14px;padding-left: 10px;">
+                  <!-- <div style="display: block;width: 20px;color: #232323;font-size: 14px;font-weight: bold;line-height: 14px;">A:</div> -->
+                  <div style="display: block;width: calc(100% - 30px);color: #232323;font-size: 16px;line-height: 14px;padding-left: 10px;">
                     <div class="display-column-flex" style="width: 100%;">
                       <!--  -->
                       <div v-if="testQuestion.answerType === 'TEXT'" class="display-column-flex">
@@ -66,7 +66,7 @@
                               checked/>
                             </div>
                             <div style="width: calc(100% - 20px);height: 16px;min-height: 16px;width: calc(100% - 25px);">
-                              <p style="margin-left: 5px; margin-bottom: 0px;height: 16px;width: 100%;color: #232323;font-family: Muli SemiBold;font-size: 16px;line-height: 16px;">{{item.text}}</p>
+                              <p style="margin-left: 5px; margin-bottom: 0px;height: 16px;width: 100%;color: #232323;font-size: 16px;line-height: 16px;">{{item.text}}</p>
                               <input type="text" v-model="testQuestion.answer[index].checked"/>
                             </div>
                           </div>
@@ -83,7 +83,7 @@
                               v-bind:value="item"/>
                             </div>
                             <div class="col-lg-4" style="">
-                              <p style="margin-left: 5px; margin-bottom: 0px;height: 16px;width: 100%;color: #232323;font-family: Muli;font-size: 16px;line-height: 16px;">{{item.title}}</p>
+                              <p style="margin-left: 5px; margin-bottom: 0px;height: 16px;width: 100%;color: #232323;font-size: 16px;line-height: 16px;">{{item.title}}</p>
                             </div>
                           </div>
                           <!--<textarea v-model="testQuestion.answer[0].text"></textarea>-->
@@ -103,8 +103,8 @@
                         <div class="" v-if="testQuestion.qno !== 1">
                           <button id="previousBtn"
                           class="" v-on:click="previous"
-                          style="height: 48px;width: 100px;color: black;margin: auto auto auto 0px;background-color: transparent;border: 0px;font-family: Muli;align-self: flex-start;position: relative;font-size: 14px;font-weight: normal;line-height: 14px;text-align: center;float:left;">
-                          <img src="" style="height: 12px;width: 12px;margin: 0px auto;"/><span>&nbsp;Previous</span>
+                          style="height: 48px;width: 100px;color: black;margin: auto auto auto 0px;background-color: transparent;border: 0px;align-self: flex-start;position: relative;font-size: 14px;font-weight: normal;line-height: 14px;text-align: center;float:left;">
+                          <img src="../../assets/Previous-Arrow.svg" style="height: 12px;width: 12px;margin: 0px auto;"/><span>&nbsp;Previous</span>
                         </button>
                       </div>
                     </div>
@@ -113,12 +113,12 @@
                         <button v-if="testQuestion.qno !== testCollection.totalQuestions"
                         :disabled="disableNext"
                         v-on:click="next"
-                        style="	height: 48px;	width: 100px;	border-radius: 24px;	background-color: #796EFF;	color: #FFFFFF;	font-family: Muli;	font-size: 16px;	font-weight: bold;	line-height: 16px;	text-align: center; float:right;">
+                        style="	height: 48px;	width: 100px;	border-radius: 24px;	background-color: #796EFF;	color: #FFFFFF;		font-size: 16px;	font-weight: bold;	line-height: 16px;	text-align: center; float:right;">
                         Next
                       </button>
                       <button v-if="testQuestion.qno === testCollection.totalQuestions" v-on:click="completeTest(testCollection.testName)"
                       :disabled="disableNext"
-                      style="cursor:pointer;height: 48px;	width: 100px;	border-radius: 24px;	background-color: #796EFF;	color: #FFFFFF;	font-family: Muli;	font-size: 16px;	font-weight: bold;	line-height: 16px;	text-align: center; float:right;">
+                      style="cursor:pointer;height: 48px;border-radius: 24px;	background-color: #796EFF;	color: #FFFFFF;		font-size: 16px;	font-weight: bold;	line-height: 16px;	text-align: center; float:right;">
                       Complete Test
                     </button>
                   </div>
@@ -187,10 +187,16 @@ export default {
     },
     completeTest (testName) {
       console.log('TEST COMPLETE', testName)
+      this.updateQuestion(this.testQuestion.answer)
       this.updateTestCollection()
-      axios.post('https://www.mturk.com/mturk/externalSubmit?assignmentId=' + this.$route.query.assignmentId + '&altQuestion=NA')
+      this.$router.push('/Success')
+      const options = {
+        headers: {'Access-Control-Allow-Origin': '*'}
+      }
+      axios.post('https://www.mturk.com/mturk/externalSubmit?assignmentId=' + this.$route.query.assignmentId + '&altQuestion=NA', options)
         .then((response) => {
           console.log('RESPONSE', response)
+          this.$router.push('/Success')
         })
         .catch((error) => {
           console.error(error)
@@ -216,6 +222,7 @@ export default {
         answer = this.getCheckedItems()
       } else {
         answer = this.testQuestion.answer
+        console.log('after writing an answer', this.testQuestion.answer)
       }
       Promise.all([this.updateQuestion(answer), this.loadQuestionNext()])
         .then().catch((error) => {
@@ -235,10 +242,12 @@ export default {
       return checkedItems
     },
     updateQuestion (inputAnswer) {
+      console.log('input answer', inputAnswer)
       firestore.collection('turkers-assessments').doc(this.$route.query.workerId).collection('tests-data').doc('data')
         .collection('question_and_answers').doc(this.testQuestion.questionId).set({
           answer: inputAnswer
         }, { merge: true }).then(() => {
+          console.log('answer')
         }).catch((error) => {
           return error
         })
@@ -336,6 +345,7 @@ export default {
               this.disableNext = true
             } else {
               this.testQuestion.answer = doc.docs[0].data().answer
+              console.log('marked answer', this.testQuestion.answer, doc.docs[0].data().answer)
               this.disableNext = false
             }
             if (doc.docs[0].data().answer === null && doc.docs[0].data().answerType === 'QUICK_REPLY' && doc.docs[0].data().multipleAnswersAllowed) {
@@ -362,6 +372,7 @@ export default {
                 // this.loadQuestionData(docsFinished.docs[0].data())
               })
           }
+          this.elementIsReady = true
         }).catch((error) => {
           console.error(error)
         })
@@ -370,6 +381,9 @@ export default {
       this.testQuestion.answer[index].checked = !checkedValue
       // this.disableNextChecked(this.testQuestion.answer)
     },
+
+    // loading test to the user collection
+
     loadTestCollection () {
       firestore.collection('turk-testCollection').doc('turk_assessment').get()
         .then((gDoc) => {
@@ -418,11 +432,11 @@ input[type="radio"]:checked {
     box-shadow: none;
   }
 .tipsText{
-  color: #232323;	font-family: Muli;	font-size: 14px;	line-height: 22px;
+  color: #232323;		font-size: 14px;	line-height: 22px;
 }
 .tipsHeadCss{
   border-radius: 4px 4px 0 0;	background-color: #F7F7F7;	box-shadow: 0 1px 3px 0 rgba(0,0,0,0.24);
-  color: #232323;	font-family: Muli;	font-size: 14px;	font-weight: bold;	line-height: 14px;
+  color: #232323;		font-size: 14px;	font-weight: bold;	line-height: 14px;
 }
 .helpcardCss{
   min-height: 270px; height: auto;	width: 228px;	border-radius: 4px;	background-color: #FFFFFF;	box-shadow: 0 1px 3px 0 rgba(0,0,0,0.24); margin-left: 27%;
@@ -431,7 +445,7 @@ input[type="radio"]:checked {
   min-height: 400px;	width: 892px;	border-radius: 4px;	background-color: #FFFFFF;	box-shadow: 0 1px 3px 0 rgba(0,0,0,0.24);margin-top: 6%;  margin-bottom: 4%;
 }
 .cardHeaderCss {
-  color: #232323;	font-family: Muli;	font-size: 14px;	font-weight: bold;	line-height: 14px; height: 46px;
+  color: #232323;		font-size: 14px;	font-weight: bold;	line-height: 14px; height: 46px;
 }
 .topDiv{
   height: 62px;	width: 892px; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.24);
@@ -448,33 +462,33 @@ input[type="radio"]:checked {
   margin-top: 1%;
   vertical-align: middle;
   color: rgb(35, 35, 35);
-  font-family: Muli;
+
   font-size: 14px;
   font-weight: bold;
   line-height: 14px;
 }
 .testTitle{
-  	color: #232323;	font-family: Muli;	font-size: 18px;	font-weight: bold;	line-height: 18px; text-align: -webkit-auto;
+  	color: #232323;		font-size: 18px;	font-weight: bold;	line-height: 18px; text-align: -webkit-auto;
 }
 .testTime{
-  	color: #232323;	font-family: Muli;	font-size: 14px;	font-weight: 300;	line-height: 14px;	text-align: right;
+  	color: #232323;		font-size: 14px;	font-weight: 300;	line-height: 14px;	text-align: right;
 }
 .testDesc{
-  color: #232323;	font-family: Muli;	font-size: 14px;	line-height: 22px; text-align: left;
+  color: #232323;		font-size: 14px;	line-height: 22px; text-align: left;
 }
 .testBtn{
   height: 48px;	width: 180px;	border: 2px solid #796EFF;	border-radius: 24px;	background-color: #FFFFFF;
-  	color: #796EFF;	font-family: Muli;	font-size: 16px;	font-weight: bold;	line-height: 16px;
+  	color: #796EFF;		font-size: 16px;	font-weight: bold;	line-height: 16px;
   }
   .cardFooterCss{
     	height: 72px;	border-radius: 0 0 4px 4px;background-color: rgba(247,247,247,0.54);
   }
   .btnCss{
     height: 48px;	width: 100px;	border-radius: 24px;	background-color: #796EFF;
-    	color: #FFFFFF;	font-family: Muli;	font-size: 16px;	font-weight: bold;	line-height: 16px;	text-align: center; float: right;
+    	color: #FFFFFF;		font-size: 16px;	font-weight: bold;	line-height: 16px;	text-align: center; float: right;
   }
   #loader {
-    /* background-image: url('../../assets/loader1.svg'); */
+    background-image: url('../../assets/loader1.svg');
     background-repeat: no-repeat;
     background-size: contain;
     position: relative;
@@ -482,5 +496,11 @@ input[type="radio"]:checked {
     height: 100px;
     width: 100px;
     margin: calc((340px - 100px)/2) auto;
+  }
+  button:focus {
+    outline: none;
+  }
+  textarea.form-control{
+    min-height: 120px;
   }
 </style>

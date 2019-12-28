@@ -1,12 +1,14 @@
 <template>
-  <div class="" style=" margin-left: 230px; font-size: 28px; padding: 0px 10px;">
-    <!-- <sidebar :id="$route.params.id"/> -->
-    <!-- <topbar :crumbs1="crumbs1value" :id="$route.params.id" /> -->
+  <div class="" style="text-align: -webkit-center;height: 100vh;background: #7f68ff3b;font-size: 28px; padding: 0px 10px;">
+    <div v-if="elementIsReady !== true" class="container-fluid page-content display-column-flex" style="height: auto; width: 100%;overflow: auto;margin-top: 3%;margin-left: 2%;">
+      <div id="loader"></div>
+    </div>
+    <div v-else class="">
     <div v-if="!show_test" class="">
-      <!-- <TestList v-if="!show_inst" @testId="test_id = $event" @showInst="show_inst = $event"/> -->
       <Instructions :testId="test_id" @showTest="show_test = $event" />
     </div>
     <Test v-if="show_test"/>
+  </div>
 </div>
 </template>
 <script>
@@ -27,22 +29,29 @@ export default {
     return {
       // crumbs1value: 'Tests',
       test_id: '',
+      elementIsReady: false,
       show_inst: false,
       show_test: false
     }
   },
   mounted () {
+    console.log(window.location.href, 'router-link')
+    var url = window.location.href
+    if (this.$route.query.assignmentId == undefined || this.$route.query.hitId == undefined || this.$route.query.workerId == undefined || this.$route.query.turkSubmitTo == undefined) {
+      this.$router.push('/error')
+    }
     console.log('COMPONENT', this.show_test)
+    this.elementIsReady = true
   }
 }
 </script>
 <style lang="css" scoped>
 .tipsText{
-  color: #232323;	font-family: Muli;	font-size: 14px;	line-height: 22px;
+  color: #232323;		font-size: 14px;	line-height: 22px;
 }
 .tipsHeadCss{
   border-radius: 4px 4px 0 0;	background-color: #F7F7F7;	box-shadow: 0 1px 3px 0 rgba(0,0,0,0.24);
-  color: #232323;	font-family: Muli;	font-size: 14px;	font-weight: bold;	line-height: 14px;
+  color: #232323;		font-size: 14px;	font-weight: bold;	line-height: 14px;
 }
 .helpcardCss{
   min-height: 270px; height: auto;	width: 228px;	border-radius: 4px;	background-color: #FFFFFF;	box-shadow: 0 1px 3px 0 rgba(0,0,0,0.24); margin-left: 27%;
@@ -51,7 +60,7 @@ export default {
   height: 618px;	width: 892px;	border-radius: 4px;	background-color: #FFFFFF;	box-shadow: 0 1px 3px 0 rgba(0,0,0,0.24);margin-top: 6%;  margin-bottom: 4%;
 }
 .cardHeaderCss {
-  color: #232323;	font-family: Muli;	font-size: 14px;	font-weight: bold;	line-height: 14px;
+  color: #232323;		font-size: 14px;	font-weight: bold;	line-height: 14px;
 }
 .topDiv{
   height: 62px;	width: 892px; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.24);
@@ -68,22 +77,35 @@ export default {
   margin-top: 1%;
   vertical-align: middle;
   color: rgb(35, 35, 35);
-  font-family: Muli;
+
   font-size: 14px;
   font-weight: bold;
   line-height: 14px;
 }
 .testTitle{
-  	color: #232323;	font-family: Muli;	font-size: 18px;	font-weight: bold;	line-height: 18px; text-align: -webkit-auto;
+  	color: #232323;		font-size: 18px;	font-weight: bold;	line-height: 18px; text-align: -webkit-auto;
 }
 .testTime{
-  	color: #232323;	font-family: Muli;	font-size: 14px;	font-weight: 300;	line-height: 14px;	text-align: right;
+  	color: #232323;		font-size: 14px;	font-weight: 300;	line-height: 14px;	text-align: right;
 }
 .testDesc{
-  color: #232323;	font-family: Muli;	font-size: 14px;	line-height: 22px; text-align: left;
+  color: #232323;		font-size: 14px;	line-height: 22px; text-align: left;
 }
 .testBtn{
   height: 48px;	width: 180px;	border: 2px solid #796EFF;	border-radius: 24px;	background-color: #FFFFFF;
-  	color: #796EFF;	font-family: Muli;	font-size: 16px;	font-weight: bold;	line-height: 16px;
+  	color: #796EFF;		font-size: 16px;	font-weight: bold;	line-height: 16px;
+  }
+  button:focus {
+    outline: none;
+  }
+  #loader {
+    background-image: url('../../assets/loader1.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: relative;
+    display: block;
+    height: 100px;
+    width: 100px;
+    /* margin: calc((340px - 100px)/2) auto; */
   }
 </style>

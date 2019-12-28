@@ -4,8 +4,9 @@
       <!-- <div class="col-lg-8">
         <p>Awww! <span>Something went wrong</span> </p>
       </div> -->
-      <div class="col-lg-4">
-        <img src="../assets/404-not-found.png" alt="">
+      <div class="col-lg-8" style="margin-top:10%;margin-left: 8%;">
+        <img src="../assets/smiley.jpg" alt="" style="width: 35%;">
+        <p>Assessment completed successfully</p>
       </div>
     </div>
 </div>
@@ -17,9 +18,7 @@ export default {
     }
   },
   mounted () {
-    if (this.$route.query.assignmentId == undefined || this.$route.query.hitId == undefined || this.$route.query.workerId == undefined || this.$route.query.turkSubmitTo == undefined) {
-      this.$router.push('/error')
-    }
+    console.log('COMPONENT')
   }
 }
 </script>

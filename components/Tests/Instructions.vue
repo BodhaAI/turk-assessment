@@ -1,6 +1,9 @@
 <template>
     <div class="body-content row" style="margin-left:1%">
-      <div class="col-lg-9" style="">
+      <div v-if="elementIsReady !== true" class="container-fluid page-content display-column-flex" style="height: auto; width: 100%;overflow: auto;margin-top: 3%;margin-left: 2%;">
+        <div id="loader"></div>
+      </div>
+      <div v-else class="col-lg-9" style="">
         <div class="" style="width:560px; ">
           <div class="card cardCss" >
             <div class="card-header cardHeaderCss">
@@ -9,10 +12,11 @@
 
             <div class="card-body" style="text-align:center;">
               <div class="" style="margin:2%; text-align: -webkit-left">
-                <p style="color: #232323;font-family: Muli;font-size: 14px;font-weight: bold;line-height: 14px;">Instructions</p>
-                <p style="color: #232323;	font-family: Muli;font-size: 14px;line-height: 22px;" v-html="instructions"></p>
-                <button style="height: 48px;width: 140px;border-radius: 24px;background-color: #796EFF;color: #FFFFFF;font-family: Muli;font-size: 16px;font-weight: bold;line-height: 16px;" type="button" v-on:click="startTest()" name="button">Start Your Test</button>
+                <p style="color: #232323;font-size: 14px;font-weight: bold;line-height: 14px;">Instructions</p>
+                <p style="color: #232323;	font-size: 14px;line-height: 22px;" v-html="instructions"></p>
+                <button style="height: 48px;width: 140px;border-radius: 24px;background-color: #796EFF;color: #FFFFFF;font-size: 16px;font-weight: bold;line-height: 16px;" type="button" v-on:click="startTest()" name="button">Start Your Test</button>
               </div>
+              <p v-if="testDone" style="font-size: 14px;color: #7f68ff;">Test already taken and completed successfully!</p>
             </div>
           </div>
         </hr>
@@ -26,6 +30,8 @@ export default {
   data () {
     return {
       testName: '',
+      testDone: false,
+      elementIsReady: false,
       testCollection: '',
       instructions: '',
       gTestCollectionRef: '',
@@ -48,9 +54,18 @@ export default {
     startTest () {
       this.disableStartBtn = true
       if (this.testCollection.isComplete === true) {
-        this.$emit('showTest', true)
+        this.testDone = true
+        // this.$emit('showTest', true)
       } else {
-        this.adoptTest()
+        this.cTestCollectionRef.doc('status').get()
+          .then((response) => {
+            console.log('RESPONSE', response)
+            if (!response.exists) {
+              this.adoptTest()
+            } else {
+              this.$emit('showTest', true)
+            }
+          })
       }
       // this.adoptTest()
       // this.$emit('showTest', true)
@@ -73,11 +88,12 @@ export default {
                 testCol.isComplete = cDoc.data().isComplete
               }
               this.testCollection = testCol
+              this.elementIsReady = true
             }).catch()
         }).catch()
     },
     adoptTest () {
-      this.$emit('showTest', true)
+      // this.$emit('showTest', true)
       const executeTasks = []
       // this.testCollection.testAdopted = true
       const createTestCollection = this.cTestCollectionRef.doc('status').set({
@@ -106,14 +122,9 @@ export default {
         const timer = setInterval(() => {
           if (time < 1) {
             time += 1
-            // clearInterval(this.timer)
           } else {
             Promise.resolve().then(() => {
-              // if (this.testQuestion.questionId && this.testQuestion.questionId.length > 0) {
-              //   this.testCollection.testAdopted = true
-              // } else {
-              //   // time = 0
-              // }
+              this.$emit('showTest', true)
               clearInterval(timer)
             })
           }
@@ -143,11 +154,11 @@ export default {
 </script>
 <style lang="css" scoped>
 .tipsText{
-  color: #232323;	font-family: Muli;	font-size: 14px;	line-height: 22px;
+  color: #232323;		font-size: 14px;	line-height: 22px;
 }
 .tipsHeadCss{
   border-radius: 4px 4px 0 0;	background-color: #F7F7F7;	box-shadow: 0 1px 3px 0 rgba(0,0,0,0.24);
-  color: #232323;	font-family: Muli;	font-size: 14px;	font-weight: bold;	line-height: 14px;
+  color: #232323;		font-size: 14px;	font-weight: bold;	line-height: 14px;
 }
 .helpcardCss{
   min-height: 270px; height: auto;	width: 228px;	border-radius: 4px;	background-color: #FFFFFF;	box-shadow: 0 1px 3px 0 rgba(0,0,0,0.24); margin-left: 27%;
@@ -156,7 +167,7 @@ export default {
   min-height: 400px;	width: 892px;	border-radius: 4px;	background-color: #FFFFFF;	box-shadow: 0 1px 3px 0 rgba(0,0,0,0.24);margin-top: 6%;  margin-bottom: 4%;
 }
 .cardHeaderCss {
-  color: #232323;	font-family: Muli;	font-size: 14px;	font-weight: bold;	line-height: 14px; height: 46px;
+  color: #232323;		font-size: 14px;	font-weight: bold;	line-height: 14px; height: 46px;
 }
 .topDiv{
   height: 62px;	width: 892px; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.24);
@@ -173,22 +184,35 @@ export default {
   margin-top: 1%;
   vertical-align: middle;
   color: rgb(35, 35, 35);
-  font-family: Muli;
+
   font-size: 14px;
   font-weight: bold;
   line-height: 14px;
 }
 .testTitle{
-  	color: #232323;	font-family: Muli;	font-size: 18px;	font-weight: bold;	line-height: 18px; text-align: -webkit-auto;
+  	color: #232323;		font-size: 18px;	font-weight: bold;	line-height: 18px; text-align: -webkit-auto;
 }
 .testTime{
-  	color: #232323;	font-family: Muli;	font-size: 14px;	font-weight: 300;	line-height: 14px;	text-align: right;
+  	color: #232323;		font-size: 14px;	font-weight: 300;	line-height: 14px;	text-align: right;
 }
 .testDesc{
-  color: #232323;	font-family: Muli;	font-size: 14px;	line-height: 22px; text-align: left;
+  color: #232323;		font-size: 14px;	line-height: 22px; text-align: left;
 }
 .testBtn{
   height: 48px;	width: 180px;	border: 2px solid #796EFF;	border-radius: 24px;	background-color: #FFFFFF;
-  	color: #796EFF;	font-family: Muli;	font-size: 16px;	font-weight: bold;	line-height: 16px;
+  	color: #796EFF;		font-size: 16px;	font-weight: bold;	line-height: 16px;
+  }
+  button:focus {
+    outline: none;
+  }
+  #loader {
+    background-image: url('../../assets/loader1.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: relative;
+    display: block;
+    height: 100px;
+    width: 100px;
+    margin: calc((340px - 100px)/2) auto;
   }
 </style>
