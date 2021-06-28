@@ -7,7 +7,10 @@
         <div class="" style="width:560px; ">
           <div class="card cardCss" >
             <div class="card-header cardHeaderCss">
-              <p style="margin-top: 4px;"> <span>{{testName}}</span>  </p>
+              <p style="margin-top: 4px;">
+                <img v-on:click="$router.go(-1)" style="cursor:pointer;width: 14px;margin-right: 2%;" src="../../assets/svg/Go-Back-Arrow-Purple.svg" alt="">
+                <span>Bodha VIP Assessment</span>
+              </p>
             </div>
 
             <div class="card-body" style="text-align:center;">
@@ -31,7 +34,7 @@ export default {
     return {
       testName: '',
       testDone: false,
-      elementIsReady: false,
+      elementIsReady: true,
       testCollection: '',
       instructions: '',
       gTestCollectionRef: '',
@@ -168,6 +171,7 @@ export default {
 }
 .cardHeaderCss {
   color: #232323;		font-size: 14px;	font-weight: bold;	line-height: 14px; height: 46px;
+  text-align: left;
 }
 .topDiv{
   height: 62px;	width: 892px; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.24);

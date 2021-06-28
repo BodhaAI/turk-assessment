@@ -7,10 +7,10 @@
         <div class="" style="width:560px; ">
           <div class="card cardCss" >
             <div class="card-header cardHeaderCss">
-              <p style="margin-top: 4px;"> <span>{{testCollection.testName}}</span></p>
-              <div style="margin: auto 10px auto auto;text-align: right;color: #232323;font-weight: normal;font-size: 12px;line-height: 12px;text-align: right; margin-top:7px;">
-                <!-- <timer :testStatus="testCollection.testStatus" :testName="testId" :pauseTime="pauseTime" v-bind:time="testCollection.durationInMinutes"></timer> -->
-              </div>
+              <p style="margin-top: 4px;">
+                <img v-on:click="$router.go(-1)" style="cursor:pointer;width: 14px;margin-right: 2%;" src="../../assets/svg/Go-Back-Arrow-Purple.svg" alt="">
+                <span>{{testCollection.testName}}</span>
+              </p>
             </div>
             <div class="card-body" style="text-align:center;">
               <div class="" style="margin:2%; text-align: -webkit-left">
@@ -446,6 +446,7 @@ input[type="radio"]:checked {
 }
 .cardHeaderCss {
   color: #232323;		font-size: 14px;	font-weight: bold;	line-height: 14px; height: 46px;
+  text-align: left;
 }
 .topDiv{
   height: 62px;	width: 892px; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.24);
