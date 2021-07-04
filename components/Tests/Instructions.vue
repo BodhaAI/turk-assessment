@@ -104,6 +104,7 @@ export default {
         // testName: gDoc.data().testName,
         id: this.$route.query.workerId,
         isComplete: false,
+        status: 'ongoing',
         hitId: this.$route.query.hitId,
         assignmentId: this.$route.query.assignmentId,
         // totalQuestions: gDoc.data().totalQuestions

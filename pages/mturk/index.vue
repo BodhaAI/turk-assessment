@@ -44,7 +44,7 @@
                </div>
             </div>
             <div class="card-body" style="text-align:center;">
-               <div class=""  style="margin:2%; margin-bottom:9%;">
+               <div class=""  style="margin:2%;">
                   <div class="row" style="min-height: 114px;">
                      <div class="col-lg-2" style="height: 88px;width: 88px;z-index: 1;">
                         <div>
@@ -73,10 +73,15 @@
                      <div class="col-lg-2">
                      </div>
                      <div  class="col-lg-5" style="text-align: -webkit-left;padding-left: 0px;">
-                        <button v-on:click="toTest()" class="testBtn" type="button" name="button">Get Started</button>
+                       <button v-if="status == 'complete'" class="testBtn" type="button" name="button">Assessment Taken</button>
+                       <button v-if="status == 'ongoing'" v-on:click="toTest()" class="testBtn" type="button" name="button">Resume Assessment</button>
+                        <button v-if="status == 'started'" v-on:click="toTest()" class="testBtn" type="button" name="button">Get Started</button>
                      </div>
                   </div>
                </div>
+            </div>
+            <div class="card-footer" style="height: 70px;text-align: right;">
+              <button class="testBtn2" type="button" name="button">SUBMIT</button>
             </div>
             <!-- <hr> -->
          </div>
@@ -84,12 +89,15 @@
    </div>
 </template>
 <script>
+import {firestore} from '~/plugins/firebase.js'
+
 export default {
   components: {},
   data () {
     return {
       // crumbs1value: 'Tests',
       elementIsReady: false,
+      status: false
     }
   },
   mounted () {
@@ -98,16 +106,22 @@ export default {
     if (this.$route.query.assignmentId == undefined || this.$route.query.hitId == undefined || this.$route.query.workerId == undefined || this.$route.query.turkSubmitTo == undefined) {
       this.$router.push('/error')
     }
+    firestore.collection('turkers-assessments').doc(this.$route.query.workerId)
+      .collection('tests-data').doc('status')
+      .get().then((response) => {
+        console.log('response is', response.data())
+        this.status = response.data().status
+      })
     console.log('COMPONENT', this.show_test)
     this.elementIsReady = true
     this.show_test = false
   },
   methods: {
     toVideoComponent() {
-      this.$router.push('/mturk/video?assignmentId=3AMW0RGH&hitId=3BA7SXOG1JX5&workerId=AKHH4W&turkSubmitTo=https%3A%2F%2Fwww.mturk.com')
+      this.$router.push('/mturk/video?assignmentId='+ this.$route.query.assignmentId + '&hitId=' + this.$route.query.hitId + '&workerId=' + this.$route.query.workerId + '&turkSubmitTo=https%3A%2F%2Fwww.mturk.com')
     },
     toTest(){
-      this.$router.push('/mturk/test?assignmentId=3AMW0RGH&hitId=3BA7SXOG1JX5&workerId=AKHH4W&turkSubmitTo=https%3A%2F%2Fwww.mturk.com')
+      this.$router.push('/mturk/test?assignmentId='+ this.$route.query.assignmentId + '&hitId=' + this.$route.query.hitId + '&workerId=' + this.$route.query.workerId + '&turkSubmitTo=https%3A%2F%2Fwww.mturk.com')
     }
   }
 }
@@ -218,6 +232,11 @@ export default {
   height: 48px;	width: 180px;	border: 2px solid #796EFF;	border-radius: 24px;	background-color: #FFFFFF;
   	color: #796EFF;		font-size: 16px;	font-weight: bold;	line-height: 16px;
   }
+  .testBtn2{
+    height: 48px;
+    	width: 180px;	border: 2px solid #796EFF;	border-radius: 24px;	background-color: #796EFF;
+    	color: #FFFFFF;		font-size: 16px;	font-weight: bold;	line-height: 16px;
+    }
   button:focus {
     outline: none;
   }
