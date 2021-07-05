@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: bodha-turk
+  name: bodha-turk
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: bodha-turk
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: bodha-turk
+    spec:
+      containers:
+        - image: gcr.io/bodha-qa/github.com/bodhaai/turk-assessment
+          imagePullPolicy: IfNotPresent
+          name: bodha-turk
+---
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  labels:
+    app: bodha-turk
+  name: bodha-turk-hpa-scal
+  namespace: default
+spec:
+  maxReplicas: 2
+  metrics:
+    - resource:
+        name: cpu
+        targetAverageUtilization: 80
+      type: Resource
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: bodha-turk
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bodha-turk-svc
+  namespace: default
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+    - name: http
+      nodePort: 30333
+      port: 80
+      protocol: TCP
+      targetPort: 5000
+  selector:
+    app: bodha-turk
+  sessionAffinity: None
+  type: NodePort
