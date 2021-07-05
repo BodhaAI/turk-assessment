@@ -1,7 +1,6 @@
-FROM node:12.18.3-alpine3.9
+FROM node:10.13.0-alpine
 
-# FROM node:11.13.0-alpine
-
+#FROM node:12.18.3-alpine3.9
 # create destination directory
 RUN mkdir -p /usr/src/nuxt-app
 WORKDIR /usr/src/nuxt-app
