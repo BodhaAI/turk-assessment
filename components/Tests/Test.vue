@@ -118,7 +118,7 @@
                       </button>
                       <button v-if="testQuestion.qno === testCollection.totalQuestions" v-on:click="completeTest(testCollection.testName)"
                       :disabled="disableNext"
-                      style="cursor:pointer;height: 48px;border-radius: 24px;	background-color: #796EFF;	color: #FFFFFF;		font-size: 16px;	font-weight: bold;	line-height: 16px;	text-align: center; float:right;">
+                      style="margin-top: 2%;width: 154px;cursor:pointer;height: 48px;border-radius: 24px;	background-color: #796EFF;	color: #FFFFFF;		font-size: 16px;	font-weight: bold;	line-height: 16px;	text-align: center; float:right;">
                       Complete Test
                     </button>
                   </div>
@@ -189,14 +189,14 @@ export default {
       console.log('TEST COMPLETE', testName)
       this.updateQuestion(this.testQuestion.answer)
       this.updateTestCollection()
-      this.$router.push('/Success')
+      this.$router.push('/Success?assignmentId='+ this.$route.query.assignmentId + '&hitId=' + this.$route.query.hitId + '&workerId=' + this.$route.query.workerId + '&turkSubmitTo=https%3A%2F%2Fwww.mturk.com')
       const options = {
         headers: {'Access-Control-Allow-Origin': '*'}
       }
       axios.post('https://www.mturk.com/mturk/externalSubmit?assignmentId=' + this.$route.query.assignmentId + '&altQuestion=NA', options)
         .then((response) => {
           console.log('RESPONSE', response)
-          this.$router.push('/Success')
+          this.$router.push('/Success?assignmentId='+ this.$route.query.assignmentId + '&hitId=' + this.$route.query.hitId + '&workerId=' + this.$route.query.workerId + '&turkSubmitTo=https%3A%2F%2Fwww.mturk.com')
         })
         .catch((error) => {
           console.error(error)
@@ -204,7 +204,8 @@ export default {
     },
     updateTestCollection () {
       firestore.collection('turkers-assessments').doc(this.$route.query.workerId).collection('tests-data').doc('status').set({
-          isComplete: true
+          isComplete: true,
+          status: 'complete'
         }, { merge: true }).then().catch()
     },
     disableNextChecked (answer) {
