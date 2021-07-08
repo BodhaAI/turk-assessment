@@ -103,16 +103,26 @@ export default {
   mounted () {
     console.log(window.location.href, 'router-link')
     var url = window.location.href
+    let workerId = this.$route.query.workerId
+    console.log('response is 1', workerId)
     if (this.$route.query.assignmentId == undefined || this.$route.query.hitId == undefined || this.$route.query.workerId == undefined || this.$route.query.turkSubmitTo == undefined) {
       this.$router.push('/error')
+    } else {
+      firestore.collection('turkers-assessments').doc(workerId)
+        .collection('tests-data').doc('status')
+        .get().then((response) => {
+          if (response.exists) {
+            console.log('response is', response)
+            this.status = response.data().status
+          } else {
+            console.log('response is NOT FOUND', response)
+            this.status = 'started'
+          }
+
+        })
     }
-    firestore.collection('turkers-assessments').doc(this.$route.query.workerId)
-      .collection('tests-data').doc('status')
-      .get().then((response) => {
-        console.log('response is', response.data())
-        this.status = response.data().status
-      })
-    console.log('COMPONENT', this.show_test)
+
+    // console.log('COMPONENT', this.show_test)
     this.elementIsReady = true
     this.show_test = false
   },
